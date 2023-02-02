@@ -1,0 +1,36 @@
+type Address {
+    id: String! @id
+    txs_from: [Transaction] @hasInverse(field: from)
+    txs_to: [Transaction] @hasInverse(field: to)
+}
+
+type Transaction {
+    hash: String! @id @search
+    nonce: Int!
+    from: Address
+    to: Address
+    gas: Int64
+    gasPrice: Int64
+    block: Block!
+    input: String
+    chain: Chain!
+}
+
+type Block {
+    id: ID!
+    number: Int! @id @search
+    hash: String
+    difficulty: Int!
+    gas_limit: Int!
+    gas_used: Int!
+    timestamp: Int64 @search
+    chain: Chain!
+    txs: [Transaction] @hasInverse(field: block)
+}
+
+type Chain {
+    id: String! @id @search
+    blockchain: String!
+    blocks: [Block] @hasInverse(field: chain)
+    txs: [Transaction] @hasInverse(field: chain)
+}
