@@ -23,7 +23,7 @@ type Block {
     difficulty: Int!
     gas_limit: Int!
     gas_used: Int!
-    timestamp: Int64 @search
+    mined_at: DateTime!  @search(by: [hour])
     chain: Chain!
     txs: [Transaction] @hasInverse(field: block)
 }

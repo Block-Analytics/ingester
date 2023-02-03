@@ -1,6 +1,6 @@
 from gql import Client, gql
 from web3.types import BlockData
-
+import datetime
 
 class Block:
 
@@ -20,7 +20,9 @@ class Block:
         self.gas_limit = blockData["gasLimit"]
         self.gas_used = blockData["gasUsed"]
         self.transactions = blockData["transactions"]
-        self.timestamp = blockData["timestamp"]
+        self.mined_at = datetime.datetime.fromtimestamp(
+            blockData["timestamp"], tz=datetime.timezone.utc
+        ).strftime('%Y-%m-%dT%H:%M:%SZ')
         self.chain = chain
 
     def to_json(self):
@@ -30,7 +32,7 @@ class Block:
             "difficulty": self.difficulty,
             "gas_limit": self.gas_limit,
             "gas_used": self.gas_used,
-            "timestamp": self.timestamp,
+            "mined_at": self.mined_at,
             "chain": {
                 "id" : self.chain
             }
