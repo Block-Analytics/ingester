@@ -1,0 +1,11 @@
+{
+    "providers": {
+        "eth_mainnet": {
+            "blockchain": "ethereum",
+            "rpc_url": ""
+        }
+    },
+    "dgraph":{
+        "url": ""
+    }
+}

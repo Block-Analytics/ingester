@@ -1,27 +1,35 @@
 from web3 import Web3
-# from web3.types import BlockData
 from gql import Client, gql
 from gql.transport.requests import RequestsHTTPTransport
 from web3.middleware import geth_poa_middleware
-
 from loguru import logger
 import traceback
-
+import json
+import os
 from ingester.models.block import Block
 from ingester.models.chain import Chain
 from ingester.models.tx import Transaction
 
+# Read config
+__location__ = os.path.realpath(
+    os.path.join(os.getcwd(), os.path.dirname(__file__)))
+CONFIG = json.loads(open(os.path.join(__location__, "config.json"), "r").read())
+PROVIDERS = {}
+for config in CONFIG.get("providers", {}).keys():
+    PROVIDERS[config] = {
+        "blockchain": CONFIG["providers"][config]["blockchain"],
+        "client": Web3(Web3.HTTPProvider(CONFIG["providers"][config]["rpc_url"]))
+    }
+
 # Select your transport with a defined url endpoint
 transport = RequestsHTTPTransport(
-    url="",
+    url=CONFIG["dgraph"]["url"],
     verify=False,
     retries=3,
 )
 
 # Create a GraphQL client using the defined transport
 client = Client(transport=transport, fetch_schema_from_transport=True)
-PROVIDERS = {}
-
 
 try:
     for provider in PROVIDERS.keys():
@@ -38,11 +46,10 @@ for provider in PROVIDERS.keys():
 
     block_latest = Block(w3.eth.get_block("latest"), provider)
     last_block_number = block_latest.number
+    # Take only the last 10 blocks atm
     begin = last_block_number-10
-    # begin = 0
     end = last_block_number + 1
     for i in range(begin, end):
-    # for i in range(0, 10000):
         # check if block already exist
         res_now = Block.get_block(client, i)
         if res_now["getBlock"] == None:
