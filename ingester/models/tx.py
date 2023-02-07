@@ -1,7 +1,7 @@
 from gql import Client, gql
-from pydgraph.client import DgraphClient
 from web3.types import TxData
 
+from ingester.models.account import AccountType
 
 class Transaction:
     hash: str
@@ -10,16 +10,17 @@ class Transaction:
     to_address: str
     tags: list
 
-    def __init__(self, txData: TxData, chain:str):
+    def __init__(self, chain:str, txData: TxData, additionnal_info: dict):
         self.tx_hash = txData["hash"].hex()
         self.nonce = txData["nonce"]
-        self.from_address = txData["from"]
-        self.to_address = txData["to"]
+        self.from_account = txData["from"]
+        self.to_account = txData["to"]
         self.block_number = txData["blockNumber"]
         self.gas = txData["gas"]
         self.gas_price = txData["gasPrice"]
         self.input = txData.get("input", "")
         self.chain = chain
+        self.additionnal_info = additionnal_info
 
     def to_json(self):
         values = {
@@ -31,10 +32,16 @@ class Transaction:
             "block": {"number": self.block_number},
             "chain": {"id": self.chain}
         }
-        if self.from_address != None:
-            values["from"] = {"id": self.from_address}
-        if self.to_address != None:
-            values["to"] = {"id": self.to_address}
+        values["from"] = {
+            "address": self.from_account, 
+            "type": AccountType.CONTRACT.value if self.additionnal_info["is_contract_from"] else AccountType.EOA.value
+        }
+        
+        if self.to_account != None:
+            values["to"] = {
+                "address": self.to_account, 
+                "type": AccountType.CONTRACT.value if self.additionnal_info["is_contract_to"] else AccountType.EOA.value
+            }
         return values
 
     @classmethod

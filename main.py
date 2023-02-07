@@ -6,9 +6,11 @@ from loguru import logger
 import traceback
 import json
 import os
+# Local imports
 from ingester.models.block import Block
 from ingester.models.chain import Chain
 from ingester.models.tx import Transaction
+from ingester.utils.account import is_contract
 
 # Read config
 __location__ = os.path.realpath(
@@ -71,12 +73,18 @@ for provider in PROVIDERS.keys():
 
                 for tx in block.transactions:
                     txhash = str(tx.hex())
-
-                    txo = Transaction(w3.eth.get_transaction(txhash), provider)
+                    w3_tx = w3.eth.get_transaction(txhash)
+                    is_contract_from, is_contract_to  = is_contract(w3_tx["from"], w3), is_contract(w3_tx.get("to", ""), w3)
+                    txo = Transaction(
+                        provider,
+                        w3_tx, 
+                        {"is_contract_from":is_contract_from, "is_contract_to":is_contract_to}
+                    )
                     txo_dict = txo.to_json()
                     txo_dict.update({"block": {"id": uid_now}})
                     Transaction.insert_transaction(client, {"tx": txo_dict})
                     logger.info("Transaction {} inserted".format(txhash))
+                    
             except Exception as e :
                 logger.error("Error while block {}".format(i))
                 traceback.print_exc()

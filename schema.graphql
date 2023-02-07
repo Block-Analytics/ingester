@@ -1,5 +1,6 @@
-type Address {
-    id: String! @id
+type Account {
+    address: String! @id
+    type: String
     txs_from: [Transaction] @hasInverse(field: from)
     txs_to: [Transaction] @hasInverse(field: to)
 }
@@ -7,8 +8,8 @@ type Address {
 type Transaction {
     hash: String! @id @search
     nonce: Int!
-    from: Address
-    to: Address
+    from: Account
+    to: Account
     gas: Int64
     gasPrice: Int64
     block: Block!
