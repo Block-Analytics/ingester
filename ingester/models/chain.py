@@ -6,7 +6,6 @@ class Chain:
 
     id: str
     blockchain: str
-    type: str = "Chain"
 
     def __init__(self, id:str, blockchain: str):
         self.id = id

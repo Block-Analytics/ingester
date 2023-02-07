@@ -9,7 +9,6 @@ class Transaction:
     from_address: str
     to_address: str
     tags: list
-    type: str = "Transaction"
 
     def __init__(self, txData: TxData, chain:str):
         self.tx_hash = txData["hash"].hex()

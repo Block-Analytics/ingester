@@ -11,8 +11,7 @@ class Block:
     gas_used: int
     transactions: list
     timestamp: int
-    type: str = "Block"
-
+    
     def __init__(self, blockData: BlockData, chain: str):
         self.number = blockData["number"]
         self.hash = str(blockData["hash"].hex())
