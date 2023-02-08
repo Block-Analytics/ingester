@@ -11,7 +11,7 @@ class Block:
     gas_used: int
     transactions: list
     timestamp: int
-    
+
     def __init__(self, blockData: BlockData, chain: str):
         self.number = blockData["number"]
         self.hash = str(blockData["hash"].hex())
@@ -54,7 +54,7 @@ class Block:
     def insert_block(self, client: Client, params: dict):
         query = gql("""
             mutation CreateBlock($block: [AddBlockInput!]!) {
-                addBlock(input: $block) {
+                addBlock(input: $block, upsert: true) {
                     block {
                         number
                     }

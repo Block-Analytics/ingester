@@ -34,7 +34,7 @@ class Chain:
     def insert_chain(self, client: Client, params: dict):
         query = gql("""
             mutation CreateChain($chain: [AddChainInput!]!) {
-                addChain(input: $chain) {
+                addChain(input: $chain, upsert: true) {
                     chain {
                         id
                     }

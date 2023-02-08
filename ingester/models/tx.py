@@ -61,7 +61,7 @@ class Transaction:
     def insert_transaction(self, client: Client, params: dict):
         query = gql("""
             mutation CreateTransaction($tx: [AddTransactionInput!]!) {
-                addTransaction(input: $tx) {
+                addTransaction(input: $tx, upsert: true) {
                     transaction {
                         hash
                     }
