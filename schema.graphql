@@ -1,6 +1,6 @@
 type Account {
     address: String! @id
-    type: String
+    type: String @search
     txs_from: [Transaction] @hasInverse(field: from)
     txs_to: [Transaction] @hasInverse(field: to)
 }
