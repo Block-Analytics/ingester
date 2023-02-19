@@ -5,7 +5,13 @@
             "rpc_url": ""
         }
     },
-    "dgraph":{
-        "url": ""
+    "db":{
+        "url": "http://localhost:8000",
+        "auth": {
+            "username": "root",
+            "password": "root"
+        },
+        "namespace": "test",
+        "database": "test"
     }
 }

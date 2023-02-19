@@ -16,6 +16,8 @@ class Chain:
             "id": self.id,
             "blockchain": self.blockchain,
         }
+    def create_query(self):
+        return f'CREATE chain:{self.id} SET blockchain="{self.blockchain}";'
 
     @classmethod
     def get_chain(self, client: Client, id: str):
@@ -29,16 +31,3 @@ class Chain:
         '''.format(id=id)
         query = gql(query)
         return client.execute(query)
-
-    @classmethod
-    def insert_chain(self, client: Client, params: dict):
-        query = gql("""
-            mutation CreateChain($chain: [AddChainInput!]!) {
-                addChain(input: $chain, upsert: true) {
-                    chain {
-                        id
-                    }
-                }
-            }
-        """)
-        return client.execute(query, variable_values=params)

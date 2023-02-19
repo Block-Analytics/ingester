@@ -1,4 +1,10 @@
+# Client to handle Web3 requests
 web3
-gql[all]
+# Logs
 loguru
-pydgraph
+# Client surrealql
+requets
+# Decode ethereum bytecode
+ethereum_dasm
+# mythril
+# pyetherchain

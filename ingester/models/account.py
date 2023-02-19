@@ -19,15 +19,9 @@ class Account:
             "address": self.address,
             "type": self.account_type
         }
-
-    @classmethod
-    def get_account(self, client: Client, address: str):
-        query = '''
-            query {{
-                getAccount(address: {address}) {{
-                    address
-                }}
-            }}
-        '''.format(address=str(address))
-        query = gql(query)
-        return client.execute(query)
+    def create_query(self):
+        return f'''
+            CREATE account:{self.address} SET type="{self.account_type}";
+        '''
+    def get_query(self):
+        return f'SELECT * from account where id=account:{self.address}'

@@ -37,28 +37,13 @@ class Block:
             }
         }
 
+    def create_query(self):
+        return f'''
+            CREATE block:{self.number} SET hash="{self.hash}", difficulty={self.difficulty}, 
+            gas_limit={self.difficulty}, gas_used={self.gas_used}, mined_at="{self.mined_at}", chain="chain:{self.chain}";
+            RELATE chain:{self.chain}->blocks->block:{self.number};
+        '''
+    
     @classmethod
-    def get_block(self, client: Client, number: int):
-        query = '''
-            query {{
-                getBlock(number: {number}) {{
-                    number
-                    id
-                }}
-            }}
-        '''.format(number=str(number))
-        query = gql(query)
-        return client.execute(query)
-
-    @classmethod
-    def insert_block(self, client: Client, params: dict):
-        query = gql("""
-            mutation CreateBlock($block: [AddBlockInput!]!) {
-                addBlock(input: $block, upsert: true) {
-                    block {
-                        number
-                    }
-                }
-            }
-        """)
-        return client.execute(query, variable_values=params)
+    def get_query(self, id: int):
+        return f'SELECT * from block where id={id}'

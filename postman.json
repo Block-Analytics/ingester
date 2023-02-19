@@ -1,0 +1,576 @@
+{
+	"info": {
+		"_postman_id": "4065fd67-ac3e-481d-8c97-f3ddd2adb178",
+		"name": "BlockAnalytics",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Block",
+			"item": [
+				{
+					"name": "POST block",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "root",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "root",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "NS",
+								"value": "test",
+								"type": "default"
+							},
+							{
+								"key": "DB",
+								"value": "test",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "CREATE block:16657282 SET hash = '0xe6b93d05ea6fd895203432b38e0c49eeadfda63993e508c4ff49a6aa28b4aa87', difficulty=0, gas_limit=30000000, gas_used=9087449, mined_at=\"2023-02-18T18:25:35Z\", chain=\"chain:eth_mainnet\";"
+						},
+						"url": {
+							"raw": "{{HOST}}/sql",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"sql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET block",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "root",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "root",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "NS",
+								"value": "test",
+								"type": "default"
+							},
+							{
+								"key": "DB",
+								"value": "test",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "SELECT * FROM block FETCH chain;"
+						},
+						"url": {
+							"raw": "{{HOST}}/sql",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"sql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETEALL block",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "root",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "root",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "NS",
+								"value": "test",
+								"type": "default"
+							},
+							{
+								"key": "DB",
+								"value": "test",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "DELETE FROM block;"
+						},
+						"url": {
+							"raw": "{{HOST}}/sql",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"sql"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Chain",
+			"item": [
+				{
+					"name": "POST chain",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "root",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "root",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "NS",
+								"value": "test",
+								"type": "default"
+							},
+							{
+								"key": "DB",
+								"value": "test",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "CREATE chain:eth_mainnet SET blockchain=\"ethereum\";"
+						},
+						"url": {
+							"raw": "{{HOST}}/sql",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"sql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET chain",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "root",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "root",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "NS",
+								"value": "test",
+								"type": "default"
+							},
+							{
+								"key": "DB",
+								"value": "test",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "SELECT * from chain;"
+						},
+						"url": {
+							"raw": "{{HOST}}/sql",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"sql"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Transactions",
+			"item": [
+				{
+					"name": "POST tx",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "root",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "root",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "NS",
+								"value": "test",
+								"type": "default"
+							},
+							{
+								"key": "DB",
+								"value": "test",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "CREATE tx:0x1df6fe45d431f89b506513467e945228d11b8785ee7adfed9ad0197e2c19e198 SET nonce=5503, from_account=\"0x6F69F79cEA418024b9E0acfD18bD8DE26f9BBE39\", block=\"block:16657528\", gas=46108, gas_price=23885418009,input=\"0xa22cb46500000000000000000000000000000000000111abe46ff893f3b2fdf1f759a8a80000000000000000000000000000000000000000000000000000000000000001\", chain=\"eth_mainnet\", to_account=\"0x139732c3f717071843f90977D93400393BdF9664\""
+						},
+						"url": {
+							"raw": "{{HOST}}/sql",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"sql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET tx",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "root",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "root",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "NS",
+								"value": "test",
+								"type": "default"
+							},
+							{
+								"key": "DB",
+								"value": "test",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "SELECT id from tx where;"
+						},
+						"url": {
+							"raw": "{{HOST}}/sql",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"sql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETEALL tx",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "root",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "root",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "NS",
+								"value": "test",
+								"type": "default"
+							},
+							{
+								"key": "DB",
+								"value": "test",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "DELETE FROM tx;"
+						},
+						"url": {
+							"raw": "{{HOST}}/sql",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"sql"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Analytics",
+			"item": [
+				{
+					"name": "GET AVG GAS for last 10 blocks",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "root",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "root",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "NS",
+								"value": "test",
+								"type": "default"
+							},
+							{
+								"key": "DB",
+								"value": "test",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "SELECT id, type::float(math::mean(->txs.out.gas) OR 0) as gas_avg , * FROM block WHERE chain=\"chain:eth_mainnet\" AND (mined_at > (time::now() - 10m)) LIMIT 10; "
+						},
+						"url": {
+							"raw": "{{HOST}}/sql",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"sql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET ALL TXS FROM BLOCKS",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "root",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "root",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "NS",
+								"value": "test",
+								"type": "default"
+							},
+							{
+								"key": "DB",
+								"value": "test",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "SELECT id, <-txs.mined_at FROM tx;"
+						},
+						"url": {
+							"raw": "{{HOST}}/sql",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"sql"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "HOST",
+			"value": "http://localhost:8000",
+			"type": "default"
+		}
+	]
+}
